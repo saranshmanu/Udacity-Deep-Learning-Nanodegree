@@ -57,7 +57,7 @@ class NeuralNetwork(object):
         final_outputs = self.activation_function(final_inputs)  # signals from final output layer
         return final_outputs
 
-iterations = 100
-learning_rate = 0.1
-hidden_nodes = 2
+iterations = 10000
+learning_rate = 0.09
+hidden_nodes = 5
 output_nodes = 1
