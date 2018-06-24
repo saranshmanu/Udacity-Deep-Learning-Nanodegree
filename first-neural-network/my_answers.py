@@ -29,14 +29,14 @@ class NeuralNetwork(object):
         hidden_outputs = self.activation_function(hidden_inputs) # signals from hidden layer
         # TODO: Output layer - Replace these values with your calculations.
         final_inputs = np.dot(hidden_outputs, self.weights_hidden_to_output)# signals into final output layer
-        final_outputs = self.activation_function(final_inputs) # signals from final output layer
+        final_outputs = final_inputs # signals from final output layer
         return final_outputs, hidden_outputs
 
     def backpropagation(self, final_outputs, hidden_outputs, X, y, delta_weights_i_h, delta_weights_h_o):
         # TODO: Output error - Replace this value with your calculations.
         error = y - final_outputs # Output layer error is the difference between desired target and actual output.
         # TODO: Backpropagated error terms - Replace these values with your calculations.
-        output_error_term = error*(1 - final_outputs)*final_outputs
+        output_error_term = error
         # TODO: Calculate the hidden layer's contribution to the error
         hidden_error = np.dot(self.weights_hidden_to_output, output_error_term)
         hidden_error_term = hidden_error * hidden_outputs * (1 - hidden_outputs)
@@ -45,8 +45,8 @@ class NeuralNetwork(object):
         return delta_weights_i_h, delta_weights_h_o
 
     def update_weights(self, delta_weights_i_h, delta_weights_h_o, n_records):
-        self.weights_hidden_to_output += learning_rate*delta_weights_h_o # update hidden-to-output weights with gradient descent step
-        self.weights_input_to_hidden += learning_rate*delta_weights_i_h # update input-to-hidden weights with gradient descent step
+        self.weights_hidden_to_output += self.lr*delta_weights_h_o # update hidden-to-output weights with gradient descent step
+        self.weights_input_to_hidden += self.lr*delta_weights_i_h # update input-to-hidden weights with gradient descent step
 
     def run(self, features):
         # TODO: Hidden layer - replace these values with the appropriate calculations.
@@ -54,10 +54,10 @@ class NeuralNetwork(object):
         hidden_outputs = self.activation_function(hidden_inputs)  # signals from hidden layer
         # TODO: Output layer - Replace these values with your calculations.
         final_inputs = np.dot(hidden_outputs, self.weights_hidden_to_output)  # signals into final output layer
-        final_outputs = self.activation_function(final_inputs)  # signals from final output layer
+        final_outputs = final_inputs  # signals from final output layer
         return final_outputs
 
-iterations = 10000
-learning_rate = 0.09
-hidden_nodes = 5
+iterations = 20000
+learning_rate = 0.0007
+hidden_nodes = 25
 output_nodes = 1
